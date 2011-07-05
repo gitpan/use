@@ -19,5 +19,4 @@ README
 README.mkdn
 t/0-signature.t
 t/1-basic.t
-use-0.01/SIGNATURE
 SIGNATURE                                Public-key signature (added by MakeMaker)

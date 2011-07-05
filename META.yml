@@ -8,7 +8,7 @@ configure_requires:
   ExtUtils::MakeMaker: 6.42
 distribution_type: module
 generated_by: 'Module::Install version 1.01'
-license: cc0
+license: unrestricted
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
@@ -28,4 +28,4 @@ resources:
     type: git
     url: git://github.com/audreyt/use.git
     web: http://github.com/audreyt/use/tree
-version: 0.01
+version: 0.02
