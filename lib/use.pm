@@ -2,8 +2,9 @@ package use;
 use strict;
 use warnings;
 use 5.008;
-our $VERSION = '0.02';
-use base 'rig::engine::base';
+our $VERSION = '0.03';
+use perl5 0.08 ();
+use base 'perl5';
 use version 0.86 'is_lax';
 
 sub use {
@@ -12,39 +13,21 @@ sub use {
 }
 
 sub import {
-    goto &{rig::engine::base->can('import')} if @_;
-}
-
-sub build_import {
-    shift;
-
-    my @use;
-    while (my $arg = shift) {
-        if (ref $arg eq 'ARRAY') {
-            push @{ $use[-1]->{args} ||= [] }, @$arg;
-        }
-        elsif (ref $arg eq 'HASH') {
-            $use[-1] = { %{$use[-1]}, %$arg };
-        }
-        elsif (is_lax($arg)) {
-            if (@use) {
-                $use[-1]{version} = $arg;
-                next;
-            }
-
-            my $perl_version = version->parse($arg)->numify;
-            push @use, { name => $perl_version };
-            if ($perl_version >= 5.009003 and $perl_version < 6) {
-                my $sub_version = int(($perl_version - 5) * 1000);
-                push @use, { name => 'strict' };
-                push @use, { name => 'feature', args => [":5.$sub_version"] };
-            }
-        }
-        else {
-            push @use, { name => $arg };
+    return unless @_;
+    my $class = shift(@_);
+    if (@_ and is_lax($_[0])) {
+        my $perl_version = version->parse(shift(@_))->numify;
+        eval "use $perl_version; 1" or die $@;
+        if ($perl_version >= 5.009003 and $perl_version < 6) {
+            my $sub_version = int(($perl_version - 5) * 1000);
+            push @_, (
+                strict =>
+                feature => [":5.$sub_version"],
+            );
         }
     }
-    return ({'' => { use => \@use }}, '');
+    unshift @_, $class;
+    goto &{perl5->can('importer')};
 }
 
 1;
@@ -72,10 +55,10 @@ use - Import several modules with a single use statement
     use use '5.12.0', 'HTTP::Status' => '6.00' => [':constants'];
 
     # ...or in your own module, importing on behalf of its caller:
-    package perl5::foo;
+    package MY::Macro;
     sub import {
         use use;
-        local @_ = qw[ methods invoker ];
+        local @_ = qw[ Module1 Module2 ];
         goto &use::use;
     }
 
@@ -93,7 +76,7 @@ For example, C<use use '5.12.0'> expands to C<use strict; use feature ':5.12'>.
 
 =head1 SEE ALSO
 
-L<rig>, L<modules>
+L<perl5>, L<modules>
 
 =head1 AUTHORS
 

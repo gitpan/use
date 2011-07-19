@@ -20,7 +20,7 @@ no_index:
     - t
 requires:
   perl: 5.8.0
-  rig::engine::base: 0
+  perl5: 0.08
   version: 0.86
 resources:
   homepage: http://github.com/audreyt/use/tree
@@ -28,4 +28,4 @@ resources:
     type: git
     url: git://github.com/audreyt/use.git
     web: http://github.com/audreyt/use/tree
-version: 0.02
+version: 0.03
