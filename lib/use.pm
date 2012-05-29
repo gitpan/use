@@ -2,9 +2,8 @@ package use;
 use strict;
 use warnings;
 use 5.008;
-our $VERSION = '0.03';
-use perl5 0.08 ();
-use base 'perl5';
+our $VERSION = '0.04';
+use base 'use::perl5';
 use version 0.86 'is_lax';
 
 sub use {
@@ -27,7 +26,7 @@ sub import {
         }
     }
     unshift @_, $class;
-    goto &{perl5->can('importer')};
+    goto &{use::perl5->can('importer')};
 }
 
 1;
@@ -73,6 +72,11 @@ L<Filter::Simple> or L<Module::Compile> work correctly.
 If a Perl version number larger than C<5.9.3> appears as the first argument,
 then it's automatically expanded just like a regular C<use VERSION> statement.
 For example, C<use use '5.12.0'> expands to C<use strict; use feature ':5.12'>.
+
+=head1 ACKNOWLEDGEMENTS
+
+Thanks to ingy∵net for refactoring most of this module into the L<perl5>
+module, and making this module a simple subclass of it.
 
 =head1 SEE ALSO
 

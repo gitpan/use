@@ -1,3 +1,10 @@
+[Changes for 0.04 - Tue May 29 14:32:37 CST 2012]
+
+* Inline perl5.pm into use::perl5 rather than depending on it,
+  to avoid installation issues from Strawberry Perl.
+
+  Reported by: Rohan Carly
+
 [Changes for 0.03 - Tue Jul 19 22:10:15 CST 2011]
 
 * Uses perl5.pm instead of rig.pm
