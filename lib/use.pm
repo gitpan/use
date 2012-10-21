@@ -2,7 +2,7 @@ package use;
 use strict;
 use warnings;
 use 5.008;
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 use base 'use::perl5';
 use version 0.86 'is_lax';
 

@@ -1,3 +1,7 @@
+[Changes for 0.05 - Sun Oct 21 22:06:29 CST 2012]
+
+* Rebuild with up-to-date Module::Install 1.06; no functional changes.
+
 [Changes for 0.04 - Tue May 29 14:32:37 CST 2012]
 
 * Inline perl5.pm into use::perl5 rather than depending on it,
